@@ -1,12 +1,12 @@
-name: Build and Deploy
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # ここでブランチを指定してください
+      - main  # mainブランチへのプッシュイベントに反応
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,9 +23,6 @@ jobs:
 
     - name: Deploy to GitHub Pages
       run: |
-        git config --global user.name ${{ secrets.GITHUB_ACTOR }}
-        git config --global user.email ${{ secrets.GITHUB_ACTOR }}@users.noreply.github.com
-        git checkout gh-pages  # gh-pages ブランチを使用する場合
         cp myapp docs/  # myappをdocsディレクトリにコピー
         git add docs/myapp
         git commit -m "Update myapp"
