@@ -22,6 +22,10 @@ jobs:
       run: mkdir docs
     - name: Build Go Application
       run: go build -o myapp
+    - name: Set Git User Name and Email
+      run: |
+        git config user.name "${{ secrets.GIT_USER_NAME }}"
+        git config user.email "${{ secrets.GIT_USER_EMAIL }}"
 
     - name: Deploy to GitHub Pages
       run: |
