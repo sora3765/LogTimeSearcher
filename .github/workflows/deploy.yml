@@ -1,0 +1,32 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main  # ここでブランチを指定してください
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.20.4
+
+    - name: Build Go Application
+      run: go build -o myapp
+
+    - name: Deploy to GitHub Pages
+      run: |
+        git config --global user.name ${{ secrets.GITHUB_ACTOR }}
+        git config --global user.email ${{ secrets.GITHUB_ACTOR }}@users.noreply.github.com
+        git checkout gh-pages  # gh-pages ブランチを使用する場合
+        cp myapp docs/  # myappをdocsディレクトリにコピー
+        git add docs/myapp
+        git commit -m "Update myapp"
+        git push
