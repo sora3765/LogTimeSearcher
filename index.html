@@ -19,7 +19,7 @@
 
                 // 現在の日本時間を取得
                 const currentTime = new Date(jst).toLocaleString('en-US', {
-                    year: 'numeric',
+                    year: '2-digit',
                     month: 'short',
                     day: '2-digit',
                     hour: '2-digit',
@@ -43,7 +43,6 @@
                 textArea.select();
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
-                alert("クリップボードにコピーしました: " + text);
             }
 
             // ページの読み込み完了時に関数を呼び出す
