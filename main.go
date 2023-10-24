@@ -25,8 +25,10 @@ func main() {
 		currentTime := time.Now().In(jst).Format("02/Jan/2006:15:04:05")
 		html := fmt.Sprintf("<html><body>現在の時刻 (日本時間): %s</body></html>", currentTime)
 
-		// HTTPレスポンスをブラウザに送信
-		js.Global().Get("document").Call("write", html)
+		// HTML要素に挿入
+		document := js.Global().Get("document")
+		outputDiv := document.Call("getElementById", "output")
+		outputDiv.Set("innerHTML", html)
 
 		return nil
 	})
