@@ -19,7 +19,7 @@
         
                 // 現在の日本時間を取得し、指定のフォーマットで表示
                 const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-                const formattedTime = new Date(jst).toLocaleString('en-US', options);
+                const formattedTime = new Date(jst).toLocaleString('en-US', options).replace(/,/g, '');
         
                 // HTML要素に挿入
                 outputElement.textContent = formattedTime;
@@ -42,7 +42,6 @@
             // ページの読み込み完了時に関数を呼び出す
             displayJapaneseTime();
         });
-        
         
         
     </script>
