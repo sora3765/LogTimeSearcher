@@ -1,11 +1,16 @@
-<!DOCTYPE html>
 <html>
-  <head>
-    <title>WebAssembly App</title>
-  </head>
-  <body>
-    <h1>WebAssembly App</h1>
-    <div id="output"></div>
-    <script src="main.wasm"></script>
-  </body>
+    <head>
+       <meta charset="utf-8" />
+       <script src="wasm_exec.js"></script>
+       <script>
+           const go = new Go();
+           WebAssembly.instantiateStreaming(
+               fetch("main.wasm"),
+               go.importObject
+           ).then((result) => {
+               go.run(result.instance);
+           });
+       </script>
+   </head>
+    <body></body>
 </html>
