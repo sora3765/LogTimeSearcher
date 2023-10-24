@@ -12,30 +12,25 @@
         document.addEventListener("DOMContentLoaded", function () {
             const outputElement = document.getElementById('output');
             const copyButton = document.getElementById('copyButton');
-
+        
             function displayJapaneseTime() {
                 // 日本時間のタイムゾーンを設定
                 const jst = new Date().toLocaleString('en-US', { timeZone: 'Asia/Tokyo' });
-
+        
                 // 現在の日本時間を取得
                 const currentTime = new Date(jst).toLocaleString('en-US', {
-                    year: '2-digit',
-                    month: 'short',
                     day: '2-digit',
+                    month: 'short',
+                    year: '2-digit',
                     hour: '2-digit',
                     minute: '2-digit',
                     second: '2-digit',
                 });
-
+        
                 // HTML要素に挿入
                 outputElement.innerHTML = `現在の時刻 (日本時間): ${currentTime}`;
-
-                // クリップボードにコピーするためのイベントリスナーを追加
-                copyButton.addEventListener("click", function () {
-                    copyToClipboard(currentTime);
-                });
             }
-
+        
             function copyToClipboard(text) {
                 const textArea = document.createElement("textarea");
                 textArea.value = text;
@@ -44,10 +39,16 @@
                 document.execCommand('copy');
                 document.body.removeChild(textArea);
             }
-
+        
+            // クリック時に日本時間をクリップボードにコピー
+            copyButton.addEventListener("click", function () {
+                copyToClipboard(outputElement.textContent);
+            });
+        
             // ページの読み込み完了時に関数を呼び出す
             displayJapaneseTime();
         });
+        
     </script>
 </body>
 </html>
