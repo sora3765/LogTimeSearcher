@@ -1,49 +1,38 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>日本時間表示</title>
+    <title>現在の時間</title>
+    <script>
+        function updateCurrentTime() {
+            var now = new Date();
+            var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+            
+            var day = days[now.getUTCDay()];
+            var month = months[now.getUTCMonth()];
+            var date = now.getUTCDate();
+            var hours = now.getUTCHours();
+            var minutes = now.getUTCMinutes();
+            var seconds = now.getUTCSeconds();
+            var year = now.getUTCFullYear();
+            
+            var formattedTime = day + "/" + month + "/" + year + ":" + padNumber(hours) + ":" + padNumber(minutes) + ":" + padNumber(seconds);
+            
+            document.getElementById("current-time").innerText = formattedTime;
+        }
+
+        function padNumber(num) {
+            if (num < 10) {
+                return "0" + num;
+            }
+            return num;
+        }
+
+        setInterval(updateCurrentTime, 1000);
+    </script>
 </head>
 <body>
-    <div id="output"></div>
-    <button id="copyButton">クリップボードにコピー</button>
-    <script src="main.js"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const outputElement = document.getElementById('output');
-            const copyButton = document.getElementById('copyButton');
-        
-            function displayJapaneseTime() {
-                // 日本時間のタイムゾーンを設定
-                const jst = new Date().toLocaleString('en-US', { timeZone: 'Asia/Tokyo' });
-        
-                // 現在の日本時間を取得し、指定のフォーマットで表示
-                const options = { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-                const formattedTime = new Date(jst).toLocaleString('en-US', options).replace(/,/g, '');
-        
-                // HTML要素に挿入
-                outputElement.textContent = formattedTime;
-            }
-        
-            function copyToClipboard(text) {
-                const textArea = document.createElement("textarea");
-                textArea.value = text;
-                document.body.appendChild(textArea);
-                textArea.select();
-                document.execCommand('copy');
-                document.body.removeChild(textArea);
-            }
-        
-            // クリック時に日本時間をクリップボードにコピー
-            copyButton.addEventListener("click", function () {
-                copyToClipboard(outputElement.textContent);
-            });
-        
-            // ページの読み込み完了時に関数を呼び出す
-            displayJapaneseTime();
-        });
-        
-        
-    </script>
+    <h1>現在の時間</h1>
+    <p id="current-time"></p>
 </body>
 </html>
