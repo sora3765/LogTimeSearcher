@@ -3,21 +3,17 @@
 <head>
     <title>現在の時間</title>
     <script>
-        function updateCurrentTime() {
+        function getCurrentTime() {
             var now = new Date();
-            var days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-            var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-            
-            var day = days[now.getUTCDay()];
-            var month = months[now.getUTCMonth()];
             var date = now.getUTCDate();
+            var month = now.toLocaleString('default', { month: 'short' });
+            var year = now.getUTCFullYear();
             var hours = now.getUTCHours();
             var minutes = now.getUTCMinutes();
             var seconds = now.getUTCSeconds();
-            var year = now.getUTCFullYear();
-            
-            var formattedTime = day + "/" + month + "/" + year + ":" + padNumber(hours) + ":" + padNumber(minutes) + ":" + padNumber(seconds);
-            
+
+            var formattedTime = padNumber(date) + "/" + month + "/" + year + ":" + padNumber(hours) + ":" + padNumber(minutes) + ":" + padNumber(seconds);
+
             document.getElementById("current-time").innerText = formattedTime;
         }
 
@@ -28,7 +24,7 @@
             return num;
         }
 
-        setInterval(updateCurrentTime, 1000);
+        getCurrentTime(); // ページを開いた時に時間を表示
     </script>
 </head>
 <body>
